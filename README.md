@@ -1,104 +1,322 @@
-# Clean Next.js + Sanity app
+# Next.js + Sanity + Algolia Search Integration
 
-This template includes a [Next.js](https://nextjs.org/) app with a [Sanity Studio](https://www.sanity.io/) – an open-source React application that connects to your Sanity project’s hosted dataset. The Studio is configured locally and can then be deployed for content collaboration.
+This project combines a [Next.js](https://nextjs.org/) frontend with a [Sanity Studio](https://www.sanity.io/) for content management and **automatic Algolia search indexing** for powerful, real-time search functionality.
 
 ![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](/sanity-next-preview.png)
 
-## Features
+## 🚀 Algolia Search Integration
 
-- **Next.js 15 for Performance:** Leverage the power of Next.js 15 App Router for blazing-fast performance and SEO-friendly static sites.
-- **Real-time Visual Editing:** Edit content live with Sanity's [Presentation Tool](https://www.sanity.io/docs/presentation) and see updates in real time.
-- **Live Content:** The [Live Content API](https://www.sanity.io/live) allows you to deliver live, dynamic experiences to your users without the complexity and scalability challenges that typically come with building real-time functionality.
-- **Customizable Pages with Drag-and-Drop:** Create and manage pages using a page builder with dynamic components and [Drag-and-Drop Visual Editing](https://www.sanity.io/visual-editing-for-structured-content).
-- **Powerful Content Management:** Collaborate with team members in real-time, with fine-grained revision history.
-- **AI-powered Media Support:** Auto-generate alt text with [Sanity AI Assist](https://www.sanity.io/ai-assist).
-- **On-demand Publishing:** No waiting for rebuilds—new content is live instantly with Incremental Static Revalidation.
-- **Easy Media Management:** [Integrated Unsplash support](https://www.sanity.io/plugins/sanity-plugin-asset-source-unsplash) for seamless media handling.
+### The Problem
+Content teams need to keep their search functionality up-to-date with their latest content, but manually syncing content to search indexes is time-consuming and error-prone. This creates a gap between published content and searchable content.
 
-## Demo
+### The Solution
+This project automatically syncs documents to Algolia's search index, ensuring your search functionality always reflects your latest content. When content is published, updated, or deleted in Sanity, the system automatically:
 
-https://template-nextjs-clean.sanity.dev
+- **Creates** new search records in Algolia
+- **Updates** existing search records with latest content
+- **Removes** deleted content from search indexes
+- **Maintains** real-time synchronization between content and search
 
-## Getting Started
+### Key Benefits
 
-### Installing the template
+- **🔍 Real-time search updates** - Content becomes searchable immediately upon publishing
+- **⚡ Reduced manual work** - No need for manual search index updates
+- **🎯 Search accuracy** - Search results always reflect your latest published content
+- **🛠️ Simplified implementation** - Automatic document synchronization with zero maintenance
+- **📈 Scalable content** - Handles updates automatically as your content grows
+- **🚀 Performance** - Leverages Algolia's lightning-fast search infrastructure
 
-#### 1. Initialize template with Sanity CLI
+## 🏗️ Architecture Overview
 
-Run the command in your Terminal to initialize this template on your local computer.
+This project consists of three main components:
 
-See the documentation if you are [having issues with the CLI](https://www.sanity.io/help/cli-errors).
+1. **Frontend** (`/frontend`) - Next.js 15 app with search functionality
+2. **Studio** (`/studio`) - Sanity Studio for content management
+3. **Functions** (`/functions`) - Sanity Functions for automatic Algolia sync
 
-```shell
-npm create sanity@latest -- --template sanity-io/sanity-template-nextjs-clean
+## ✨ Features
+
+### Next.js 15 Frontend
+- **App Router** for blazing-fast performance and SEO-friendly static sites
+- **Real-time Visual Editing** with Sanity's Presentation Tool
+- **Live Content API** for dynamic, real-time experiences
+- **Customizable Pages** with drag-and-drop page builder
+- **AI-powered Media Support** with auto-generated alt text
+- **On-demand Publishing** with Incremental Static Revalidation
+- **Integrated Unsplash** support for seamless media handling
+
+### Sanity Studio
+- **Real-time collaboration** with team members
+- **Fine-grained revision history**
+- **Visual editing** with live preview
+- **Content validation** and structured data
+
+### Algolia Search Integration
+- **Automatic sync** on content publish/update/delete
+- **Real-time search** with sub-second response times
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js v22.x
+- A Sanity account
+- An Algolia account with:
+  - Application ID
+  - Write API key
+  - An index named 'posts' (or customize as needed)
+
+### 1. Installation
+
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd algolia-sync-function
+
+# Install dependencies
+npm install
 ```
 
-#### 2. Run Studio and Next.js app locally
+### 2. Environment Setup
 
-Navigate to the template directory using `cd <your app name>`, and start the development servers by running the following command
+Create a `.env` file in the project root:
 
-```shell
+```env
+
+# Algolia Configuration
+ALGOLIA_APP_ID=your_algolia_app_id
+ALGOLIA_WRITE_KEY=your_algolia_write_key
+SANITY_PROJECT_ID=your_sanity_projectID
+SANITY_DATASET=your_dataset_name
+```
+
+### 3. Run Development Servers
+
+```bash
+# Start both Next.js and Sanity Studio
 npm run dev
 ```
 
-#### 3. Open the app and sign in to the Studio
+This will start:
+- **Next.js app**: [http://localhost:3000](http://localhost:3000)
+- **Sanity Studio**: [http://localhost:3333](http://localhost:3333)
 
-Open the Next.js app running locally in your browser on [http://localhost:3000](http://localhost:3000).
+### 4. Set Up Algolia Sync Function
 
-Open the Studio running locally in your browser on [http://localhost:3333](http://localhost:3333). You should now see a screen prompting you to log in to the Studio. Use the same service (Google, GitHub, or email) that you used when you logged in to the CLI.
+The Algolia sync function is already configured in `sanity.blueprint.ts`. It automatically:
 
-### Adding content with Sanity
+- Triggers on `create`, `update`, and `delete` events for post documents
+- Syncs document data to Algolia's search index
+- Handles error cases and provides detailed logging
 
-#### 1. Publish your first document
+### 5. Initial Content Sync
 
-The template comes pre-defined with a schema containing `Page`, `Post`, `Person`, and `Settings` document types.
+For existing content, run the initial sync script:
 
-From the Studio, click "+ Create" and select the `Post` document type. Go ahead and create and publish the document.
-
-Your content should now appear in your Next.js app ([http://localhost:3000](http://localhost:3000)) as well as in the Studio on the "Presentation" Tab
-
-#### 2. Import Sample Data (optional)
-
-You may want to start with some sample content and we've got you covered. Run this command from the root of your project to import the provided dataset (sample-data.tar.gz) into your Sanity project. This step is optional but can be helpful for getting started quickly.
-
-```shell
-npm run import-sample-data
+```bash
+# Sync all existing posts to Algolia
+npm run sync:algolia
 ```
 
-#### 3. Extending the Sanity schema
+This script will:
+- Connect to your Sanity project
+- Fetch all documents of type "post"
+- Transform data to match Algolia's format
+- Upload all documents to the Algolia index
+- Provide detailed logging of the sync process
 
-The schema for the `Post` document type is defined in the `studio/src/schemaTypes/post.ts` file. You can [add more document types](https://www.sanity.io/docs/schema-types) to the schema to suit your needs.
+## 📝 Content Management
 
-### Deploying your application and inviting editors
+### Creating Content
 
-#### 1. Deploy Sanity Studio
+1. Open the Sanity Studio at [http://localhost:3333](http://localhost:3333)
+2. Click "+ Create" and select "Post"
+3. Add your content with title, body, and other fields
+4. **Publish** the document
 
-Your Next.js frontend (`/frontend`) and Sanity Studio (`/studio`) are still only running on your local computer. It's time to deploy and get it into the hands of other content editors.
+**Result**: The content is automatically synced to Algolia and becomes searchable immediately!
 
-Back in your Studio directory (`/studio`), run the following command to deploy your Sanity Studio.
+### Content Types
 
-```shell
+The project includes these document types:
+- **Page** - Static pages with page builder
+- **Post** - Blog posts and articles
+- **Person** - Author profiles
+- **Settings** - Site-wide configuration
+
+### Visual Editing
+
+- Edit content live with Sanity's Presentation Tool
+- See changes in real-time on your Next.js app
+- Collaborate with team members in real-time
+
+## 🔍 Search Implementation
+
+### Frontend Search Component
+
+The project includes a search component (`/frontend/app/components/Search.tsx`) that:
+
+- Connects to Algolia's search API
+- Provides real-time search results
+
+### Search Features
+
+- **Instant search** with sub-second response times
+
+## 🧪 Testing
+
+### Test the Algolia Function
+
+```bash
+# Test with sample document
+npx sanity functions test algolia-document-sync --file functions/algolia-document-sync/document.json --dataset production --with-user-token
+
+# Test with custom data
+npx sanity functions test algolia-document-sync --data '{
+  "_type": "post",
+  "_id": "test-post",
+  "title": "Test Article"
+}' --dataset production --with-user-token
+
+# Interactive development mode
+npx sanity functions dev
+```
+
+### Test with Real Data
+
+```bash
+# Export a real document for testing
+cd studio
+npx sanity documents get "your-post-id" > ../test-document.json
+cd ..
+npx sanity functions test algolia-document-sync --file test-document.json --dataset production --with-user-token
+```
+
+## 🚀 Deployment
+
+### 1. Deploy Sanity Studio
+
+```bash
+cd studio
 npx sanity deploy
 ```
 
-#### 2. Deploy Next.js app to Vercel
+### 2. Deploy Next.js App
 
-You have the freedom to deploy your Next.js app to your hosting provider of choice. With Vercel and GitHub being a popular choice, we'll cover the basics of that approach.
+Deploy to your preferred hosting provider (Vercel recommended):
 
-1. Create a GitHub repository from this project. [Learn more](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github).
-2. Create a new Vercel project and connect it to your Github repository.
-3. Set the `Root Directory` to your Next.js app.
-4. Configure your Environment Variables.
+1. Create a GitHub repository
+2. Connect to Vercel
+3. Set Root Directory to `/frontend`
+4. Configure environment variables
 
-#### 3. Invite a collaborator
+### 3. Configure Production Environment
 
-Now that you’ve deployed your Next.js application and Sanity Studio, you can optionally invite a collaborator to your Studio. Open up [Manage](https://www.sanity.io/manage), select your project and click "Invite project members"
+Ensure your production environment has:
+- `ALGOLIA_APP_ID` environment variable
+- `ALGOLIA_WRITE_KEY` environment variable
+- Sanity project configuration
 
-They will be able to access the deployed Studio, where you can collaborate together on creating content.
+## 🛠️ Customization
 
-## Resources
+### Modify Search Fields
 
-- [Sanity documentation](https://www.sanity.io/docs)
-- [Next.js documentation](https://nextjs.org/docs)
+Update the fields synced to Algolia in `functions/algolia-document-sync/index.ts`:
+
+```typescript
+await algolia.addOrUpdateObject({
+  indexName: 'posts',
+  objectID: _id,
+  body: {
+    title,
+    slug: data.slug?.current,
+    publishedAt: data.publishedAt,
+    author: data.author?.name,
+    // Add more fields as needed
+  },
+})
+```
+
+### Change Target Index
+
+Modify the index name or sync to multiple indexes:
+
+```typescript
+await algolia.addOrUpdateObject({
+  indexName: 'your-custom-index',
+  objectID: _id,
+  body: { title },
+})
+```
+
+### Add Document Filtering
+
+Update the filter to sync specific document types:
+
+```typescript
+filter: "_type == 'post' && defined(publishedAt)"
+```
+
+### Customize Search UI
+
+Modify the search component in `/frontend/app/components/Search.tsx` to:
+- Change search result layout
+- Add custom filters
+- Implement search analytics
+- Customize search suggestions
+
+## 📊 Monitoring and Analytics
+
+### Algolia Analytics
+
+- Track search queries and results
+- Monitor search performance
+- Understand user search behavior
+- Optimize search relevance
+
+### Function Logs
+
+Monitor the sync function for:
+- Successful syncs
+- Error handling
+- Performance metrics
+- Content update frequency
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+1. **Search not working**: Check Algolia credentials and index configuration
+2. **Content not syncing**: Verify function deployment and environment variables
+3. **Slow search**: Check Algolia index configuration and search settings
+4. **Missing content**: Run initial sync script for existing content
+
+### Debug Mode
+
+Enable detailed logging in the sync function:
+
+```typescript
+console.log('Event data:', JSON.stringify(event.data, null, 2))
+console.log('Syncing to Algolia:', data._id)
+```
+
+## 📚 Resources
+
+- [Sanity Documentation](https://www.sanity.io/docs)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Algolia Documentation](https://www.algolia.com/doc/)
+- [Sanity Functions](https://www.sanity.io/docs/functions)
 - [Join the Sanity Community](https://slack.sanity.io)
 - [Learn Sanity](https://www.sanity.io/learn)
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).

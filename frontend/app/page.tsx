@@ -1,17 +1,9 @@
-import {Suspense} from 'react'
+import { Suspense } from 'react'
 import Link from 'next/link'
-import {PortableText} from '@portabletext/react'
-
-import {AllPosts} from '@/app/components/Posts'
-import GetStartedCode from '@/app/components/GetStartedCode'
-import SideBySideIcons from '@/app/components/SideBySideIcons'
-import {settingsQuery} from '@/sanity/lib/queries'
-import {sanityFetch} from '@/sanity/lib/live'
+import { AllPosts } from '@/app/components/Posts'
+import { Search } from '@/app/components/Search'
 
 export default async function Page() {
-  const {data: settings} = await sanityFetch({
-    query: settingsQuery,
-  })
 
   return (
     <>
@@ -21,9 +13,6 @@ export default async function Page() {
           <div className="container">
             <div className="relative min-h-[40vh] mx-auto max-w-2xl pt-10 xl:pt-20 pb-30 space-y-6 lg:max-w-4xl lg:px-12 flex flex-col items-center justify-center">
               <div className="flex flex-col gap-4 items-center">
-                <div className="text-md leading-6 prose uppercase py-1 px-3 bg-white font-mono italic">
-                  A starter template for
-                </div>
                 <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-black">
                   <Link
                     className="underline decoration-brand hover:text-brand underline-offset-8 hover:underline-offset-4 transition-all ease-out"
@@ -34,25 +23,36 @@ export default async function Page() {
                   +
                   <Link
                     className="underline decoration-black text-framework underline-offset-8 hover:underline-offset-4 transition-all ease-out"
-                    href="https://nextjs.org/"
+                    href="https://algolia.com/"
                   >
-                    Next.js
+                    Algolia
                   </Link>
                 </h1>
+              </div>
+              <div className="mt-6 space-y-6 prose sm:prose-lg md:prose-xl lg:prose-2xl text-gray-700">
+                <p>
+                  By integrating Sanity&lsquo;s structured content with Algolia, you can provide your users with fast, relevant search results and gather insights into what they are looking for.
+                </p>
+              </div>
+              <div className="mt-8 w-full bg-white rounded-xl shadow-md p-8 flex flex-col items-center">
+                <h3 className="text-2xl sm:text-4xl md:text-6xl lg:text-5xl font-semibold text-center mb-6">
+                  Search with Algolia
+                </h3>
+                <div className="w-full">
+                  <Search />
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div className=" flex flex-col items-center">
-          <SideBySideIcons />
-          <div className="container relative mx-auto max-w-2xl pb-20 pt-10 space-y-6 lg:max-w-4xl lg:px-12 flex flex-col items-center">
+          <div className="container relative mx-auto max-w-2xl pb-20 pt-10 space-y-6 lg:max-w-xl lg:px-12 flex flex-col items-center">
             <div className="prose sm:prose-lg md:prose-xl xl:prose-2xl text-gray-700 prose-a:text-gray-700 font-light text-center">
-              {settings?.description && <PortableText value={settings.description} />}
               <div className="flex items-center flex-col gap-4">
-                <GetStartedCode />
+
                 <Link
                   href="https://www.sanity.io/docs"
-                  className="inline-flex text-brand text-xs md:text-sm underline hover:text-gray-900"
+                  className="inline-flex text-brand text-lg md:text-lg underline hover:text-gray-900"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

@@ -1,0 +1,11 @@
+{
+  "name": "algolia-document-sync",
+  "type": "module",
+  "main": "index.ts",
+  "dependencies": {
+    "@sanity/asset-utils": "^2.3.0",
+    "@sanity/client": "^7.11.1",
+    "@sanity/functions": "^1.0.3",
+    "algoliasearch": "^5.27.0"
+  }
+}

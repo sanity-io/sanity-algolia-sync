@@ -13,7 +13,7 @@ export default async function Header() {
         <div className="flex items-center justify-between gap-5">
           <Link className="flex items-center gap-2" href="/">
             <span className="text-lg sm:text-2xl pl-2 font-semibold">
-              {settings?.title || 'Sanity + Next.js'}
+              {settings?.title || 'Sanity + Algolia'}
             </span>
           </Link>
 
@@ -23,15 +23,15 @@ export default async function Header() {
               className="flex items-center gap-4 md:gap-6 leading-5 text-xs sm:text-base tracking-tight font-mono"
             >
               <li>
-                <Link href="/about" className="hover:underline">
-                  About
+                <Link href="https://www.sanity.io/docs/developer-guides/how-to-implement-front-end-search-with-sanity" className="hover:underline">
+                  How to implement Algolia + Sanity  Guide
                 </Link>
               </li>
 
               <li className="sm:before:w-[1px] sm:before:bg-gray-200 before:block flex sm:gap-4 md:gap-6">
                 <Link
                   className="rounded-full flex gap-4 items-center bg-black hover:bg-blue focus:bg-blue py-2 px-4 justify-center sm:py-3 sm:px-6 text-white transition-colors duration-200"
-                  href="https://github.com/sanity-io/sanity-template-nextjs-clean"
+                  href="https://github.com/sanity-io/Algolia-Sanity-Function-Example"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
