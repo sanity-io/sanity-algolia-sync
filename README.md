@@ -2,7 +2,7 @@
 
 This project combines a [Next.js](https://nextjs.org/) frontend with a [Sanity Studio](https://www.sanity.io/) for content management and **automatic Algolia search indexing** for powerful, real-time search functionality.
 
-![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](/sanity-next-preview.png)
+![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](/sanity-algolia.png)
 
 ## 🚀 Algolia Search Integration
 
@@ -305,8 +305,8 @@ console.log('Syncing to Algolia:', data._id)
 - [Sanity Documentation](https://www.sanity.io/docs)
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Algolia Documentation](https://www.algolia.com/doc/)
-- [Sanity Functions](https://www.sanity.io/docs/functions)
-- [Join the Sanity Community](https://slack.sanity.io)
+- [Sanity Functions](https://www.sanity.io/docs/compute-and-ai/functions-introduction)
+- [Join the Sanity Community](https://snty.link/community)
 - [Learn Sanity](https://www.sanity.io/learn)
 
 ## 🤝 Contributing
