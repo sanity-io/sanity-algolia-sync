@@ -81,7 +81,8 @@ export const handler = documentEventHandler(async ({event}) => {
         body: document,
       })
 
-      console.log(`Synced ${_id} ("${limitedTitle}") – coverImage: ${coverImageUrl}`)
+      const coverImageInfo = coverImageUrl ? `coverImage: ${coverImageUrl}` : 'No cover image'
+      console.log(`Synced ${_id} ("${limitedTitle}") – ${coverImageInfo}`)
     } catch (error) {
       console.error('Error syncing to Algolia:', error)
       throw error

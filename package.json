@@ -38,10 +38,8 @@
   "dependencies": {
     "@sanity/cli": "^4.8.1",
     "@sanity/client": "^7.11.1",
-    "algolia": "^0.0.0",
     "algoliasearch": "^5.0.0",
     "dotenv": "^17.2.2",
-    "sanity": "^4.8.1",
-    "search": "^1.0.0"
+    "sanity": "^4.8.1"
   }
 }
