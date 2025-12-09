@@ -24,7 +24,7 @@
     "next-sanity": "^11.3.0",
     "postcss": "^8.5.6",
     "react": "19.2.1",
-    "react-dom": "^19.1.1",
+    "react-dom": "19.2.1",
     "react-instantsearch": "^7.16.3",
     "react-instantsearch-nextjs": "^1.0.2",
     "sanity": "^4.10.1",
