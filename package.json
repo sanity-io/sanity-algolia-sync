@@ -40,6 +40,7 @@
     "@sanity/client": "^7.11.1",
     "algoliasearch": "^5.0.0",
     "dotenv": "^17.2.2",
+    "next": "^15.5.8",
     "sanity": "^4.8.1"
   }
 }
